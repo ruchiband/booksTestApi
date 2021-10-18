@@ -1,4 +1,5 @@
 const express = require('express');
+const { isAdmin } = require('../middlewares/authorize');
 const router = new express.Router();
 const {Book, validateBook} = require('../models/books');
 
@@ -55,7 +56,7 @@ router.put('/api/books/:bookId', async (req, res) => {
 });
 
 //delete a book base on id
-router.delete('/api/books/:bookId', async (req, res) => {
+router.delete('/api/books/:bookId', isAdmin, async (req, res) => {
     const deletebook = await Book.findByIdAndRemove(req.params.bookId);
     if(deletebook) res.send(deletebook);
     res.status(404).send("Book not found");

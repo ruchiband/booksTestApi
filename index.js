@@ -5,13 +5,14 @@ const app = express();
 require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 const booksRoute = require('./routes/books');
-
+const usersRoute = require('./routes/user');
 //middlewares
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 
 //routes
 app.use(booksRoute);
+app.use(usersRoute);
 
 //create a logger
 const logger = winston.createLogger({
